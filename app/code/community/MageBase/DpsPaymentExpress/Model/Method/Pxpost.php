@@ -23,7 +23,11 @@
  */
 class MageBase_DpsPaymentExpress_Model_Method_Pxpost extends Mage_Payment_Model_Method_Cc
 {
-    const URL_PXPOST = 'https://sec.paymentexpress.com/pxpost.aspx';
+    //const URL_PXPOST = 'https://sec.paymentexpress.com/pxpost.aspx';
+
+    //URL for testing accounts
+    const URL_PXPOST = 'https://uat.paymentexpress.com/pxpost.aspx';
+
     const DPS_LOG_FILENAME = 'magebase_dps_pxpost.log';
 
     protected $_code = 'magebasedpspxpost';

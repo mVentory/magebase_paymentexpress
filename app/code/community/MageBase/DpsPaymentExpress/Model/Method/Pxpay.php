@@ -95,7 +95,10 @@ class MageBase_DpsPaymentExpress_Model_Method_Pxpay extends Mage_Payment_Model_M
      */
     protected function _getPxPayPostUrl()
     {
-        return Mage::getStoreConfig('payment/' . $this->_code . '/pxpayurl', $this->getStore());
+        //return Mage::getStoreConfig('payment/' . $this->_code . '/pxpayurl', $this->getStore());
+
+        //URL for testing accounts
+        return 'https://uat.paymentexpress.com/pxaccess/pxpay.aspx';
     }
 
 
