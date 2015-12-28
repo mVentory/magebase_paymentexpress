@@ -56,11 +56,29 @@ class MageBase_DpsPaymentExpress_PxpayController extends Mage_Core_Controller_Fr
                     MageBase_DpsPaymentExpress_Model_Method_Pxpay::DPS_LOG_FILENAME
                 );
 
-                if ($testLocally) {
-                    $resultXml = $this->_processSuccessResponse($this->getRequest()->getParam('result'));
-                } else {
-                    $resultXml = $this->_getRealResponse($this->getRequest()->getParam('result'));
-                }
+
+                //_getRealResponse() method doesn't generate invoice and update
+                //order status, it only sends request to DPS and returns
+                //a response, but _processSuccessResponse() methos does same
+                //and also generates an invoice, updates order status and adds all
+                //transaction data to an order which is what we want
+                //on successfull payment.
+                //
+                //It looks like a bug in the following commented code.
+                //Testing locally means we don't send request to DPS but still
+                //make order succesful (it should mimic the process), but
+                //in now it makes calls to DPS.
+                //
+                //The change is to ignore local test mode setting and process
+                //order correctly in both cases.
+
+                //if ($testLocally) {
+                //    $resultXml = $this->_processSuccessResponse($this->getRequest()->getParam('result'));
+                //} else {
+                //    $resultXml = $this->_getRealResponse($this->getRequest()->getParam('result'));
+                //}
+
+                $resultXml = $this->_processSuccessResponse($this->getRequest()->getParam('result'));
 
                 //we have a response from DPS
                 if ($resultXml) {
